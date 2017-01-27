@@ -46,6 +46,12 @@
 |ステージング|☓|☓|◯|
 |本番|☓|☓|◯|
 
+## マイグレーション
+
+[flywaydb](https://flywaydb.org/)
+
+ある程度安定していそう
+
 ## フレームワーク
 
 [labstack/echo](https://github.com/labstack/echo)
