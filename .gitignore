@@ -1,0 +1,8 @@
+*.iml
+.idea
+.DS_Store
+
+# project setting
+vendor
+app/cmd/server/assets.go
+app/cmd/server/server
