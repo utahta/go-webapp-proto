@@ -37,7 +37,7 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 func doMain() error {
 	// 設定ファイルを読み込み
 	// とりあえず直値をいれてる。CLI フラグで渡すのがいいかもしれない
-	if err := config.Load("dev", "../../../config/local"); err != nil {
+	if err := config.Load("dev", "config/local"); err != nil {
 		return err
 	}
 

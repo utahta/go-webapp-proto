@@ -30,5 +30,5 @@ model:
 
 server:
 	@make build-assets-debug
-	@cd ./app/cmd/server && go run ./*
+	@go run ./app/cmd/server/*
 
