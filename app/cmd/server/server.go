@@ -49,8 +49,8 @@ func doMain() error {
 
 	e := echo.New()
 	e.Logger.SetLevel(log.DEBUG) // ログレベルの設定
-	e.Use(middleware.Recover()) // パニックになったときにリカバーしてレスポンスを返す
-	e.Use(middleware.Logger())  // リクエスト情報をログ吐き出し。default stdout なのでデバッグ用かな。
+	e.Use(middleware.Recover())  // パニックになったときにリカバーしてレスポンスを返す
+	e.Use(middleware.Logger())   // リクエスト情報をログ吐き出し。default stdout なのでデバッグ用かな。
 	// 自前のミドルウェアを差し込むことも可能
 	// e.Pre(), e.Use() がある詳しくはドキュメント参照
 	e.Use(appmiddleware.Session("WEBAPPSESSID", store))
