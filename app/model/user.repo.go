@@ -1,5 +1,7 @@
 package model
 
+import "github.com/utahta/go-webapp-proto/app/lib/db"
+
 // Symfony でいう Repository 的な感じ
 // User などのテーブルクラスは自動生成なので、触らないことという感じが良さそう
 //
@@ -16,13 +18,8 @@ func NewUserRepository() *userRepository {
 }
 
 func (repo *userRepository) Find(id int) (*User, error) {
-	e, err := NewEngine()
-	if err != nil {
-		return nil, err
-	}
-
 	var user User
-	if _, err := e.Id(id).Get(&user); err != nil {
+	if _, err := db.E.Id(id).Get(&user); err != nil {
 		return nil, err
 	}
 	return &user, nil

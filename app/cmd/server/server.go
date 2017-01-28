@@ -11,6 +11,7 @@ import (
 	"github.com/labstack/gommon/log"
 	"github.com/utahta/go-webapp-proto/app/controller"
 	"github.com/utahta/go-webapp-proto/app/lib/config"
+	"github.com/utahta/go-webapp-proto/app/lib/db"
 	appmiddleware "github.com/utahta/go-webapp-proto/app/middleware"
 )
 
@@ -38,6 +39,11 @@ func doMain() error {
 	// 設定ファイルを読み込み
 	// とりあえず直値をいれてる。CLI フラグで渡すのがいいかもしれない
 	if err := config.Load("dev", "config/local"); err != nil {
+		return err
+	}
+
+	// データベースに繋ぐ
+	if err := db.Open(); err != nil {
 		return err
 	}
 
