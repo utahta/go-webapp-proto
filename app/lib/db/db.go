@@ -28,3 +28,7 @@ func Open() (err error) {
 
 	return nil
 }
+
+func Close() {
+	E.Close()
+}

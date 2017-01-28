@@ -46,12 +46,14 @@ func doMain() error {
 	if err := db.Open(); err != nil {
 		return err
 	}
+	defer db.Close()
 
 	// セッション用の redis に繋ぐ
 	store, err := redistore.NewRediStore(10, "tcp", ":6379", "", []byte("secret-key"))
 	if err != nil {
 		return err
 	}
+	defer store.Close()
 
 	e := echo.New()
 	e.Logger.SetLevel(log.DEBUG) // ログレベルの設定
