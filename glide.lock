@@ -1,10 +1,12 @@
-hash: 6512871cb6aa8fd99f60c53335754e05aba8163a7b32accce404848581e019d4
-updated: 2017-01-26T18:08:10.45704687+09:00
+hash: 8aa984da477d071c24ccdbfef6d0e333b0016ca92663c8e51e55c8866a03b29e
+updated: 2017-01-29T17:48:05.917215987+09:00
 imports:
 - name: github.com/boj/redistore
   version: fc113767cd6b051980f260d6dbe84b2740c46ab0
 - name: github.com/dgrijalva/jwt-go
   version: a601269ab70c205d26370c16f7c81e9017c14e04
+- name: github.com/elazarl/go-bindata-assetfs
+  version: 9a6736ed45b44bf3835afeebb3034b57ed329f3e
 - name: github.com/fsnotify/fsnotify
   version: fd9ec7deca8bf46ecd2a795baaacf2b3a9be1197
 - name: github.com/garyburd/redigo
