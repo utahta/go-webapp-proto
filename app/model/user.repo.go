@@ -2,13 +2,11 @@ package model
 
 import "github.com/utahta/go-webapp-proto/app/lib/db"
 
-// Symfony でいう Repository 的な感じ
-// User などのテーブルクラスは自動生成なので、触らないことという感じが良さそう
+// Repository で自動生成されたモデルを扱う
 //
-// 使い方はこうなりそう
-//
-// repo := model.NewUserRepository()
-// repo.Find(1)
+// e.g.
+//   repo := model.NewUserRepository()
+//   user, err := repo.Find(1)
 //
 
 type userRepository struct{}

@@ -1,10 +1,6 @@
 package main
 
 import (
-	"html/template"
-	"io"
-	"net/http"
-
 	"github.com/boj/redistore"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -15,40 +11,20 @@ import (
 	appmiddleware "github.com/utahta/go-webapp-proto/app/middleware"
 )
 
-// GOPATH の下に置いて開発想定
-// 一発目は go get github.com/utahta/go-webapp-proto してもらう
-
-type Template struct{}
-
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	// html や js などを go-bindata を使って assets.go にしている
-	// そこからよしなに取り出す
-	src, err := Asset(name)
-	if err != nil {
-		return c.NoContent(http.StatusNotFound)
-	}
-
-	tm, err := template.New("webapp").Parse(string(src))
-	if err != nil {
-		return c.NoContent(http.StatusInternalServerError)
-	}
-	return tm.Execute(w, data)
-}
+// GOPATH 下に置いて開発想定
+// GOPATH 下で go get or git clone をする必要がある
 
 func doMain() error {
 	// 設定ファイルを読み込み
-	// とりあえず直値をいれてる。CLI フラグで渡すのがいいかもしれない
 	if err := config.Load("dev", "config/local"); err != nil {
 		return err
 	}
 
-	// データベースに繋ぐ
 	if err := db.Open(); err != nil {
 		return err
 	}
 	defer db.Close()
 
-	// セッション用の redis に繋ぐ
 	store, err := redistore.NewRediStore(10, "tcp", ":6379", "", []byte("secret-key"))
 	if err != nil {
 		return err
@@ -57,24 +33,23 @@ func doMain() error {
 
 	e := echo.New()
 	e.Logger.SetLevel(log.DEBUG) // ログレベルの設定
-	e.Use(middleware.Recover())  // パニックになったときにリカバーしてレスポンスを返す
-	e.Use(middleware.Logger())   // リクエスト情報をログ吐き出し。default stdout なのでデバッグ用かな。
-	// 自前のミドルウェアを差し込むことも可能
+
+	// ミドルウェア設定
 	// e.Pre(), e.Use() がある詳しくはドキュメント参照
-	e.Use(appmiddleware.Session("WEBAPPSESSID", store))
+	e.Use(middleware.Recover())                         // パニックが起きたとき、リカバーしてエラーレスポンスを返す
+	e.Use(middleware.Logger())                          // リクエスト情報をログに書き出す。default stdout
+	e.Use(appmiddleware.Session("WEBAPPSESSID", store)) // セッションは自前ミドルウェア
 
-	// template をよしなに解釈
-	e.Renderer = new(Template)
+	// レンダラーを設定（c.Render 時に呼び出される）
+	e.Renderer = new(TemplateRenderer)
 
-	// ルーティング
-	e.GET("/static/*", controller.StaticPublic)
+	// 静的ファイルは http.FileServer に任せる
+	e.GET("/assets/public/*", FileServerHandler())
 
-	// グループ化して云々もできそう
+	// ルーティングは、グループ化もできる
 	g := e.Group("/dummy")
 	g.GET("/", controller.DummyIndex)
 	g.GET("/search", controller.DummySearch)
-
-	// 管理画面 を app と同じ階層でやるか、admin を app の隣につくるか要検討
 
 	return e.Start(":1323")
 }
