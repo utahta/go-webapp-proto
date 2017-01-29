@@ -1,8 +1,8 @@
 HAVE_FLYWAY := $(shell ls bin/flyway 2> /dev/null)
-HAVE_GLIDE := $(shell command -v glidea 2> /dev/null)
+HAVE_GLIDE := $(shell command -v glide 2> /dev/null)
 
 flyway:
-ifndef HAVE_GLIDE
+ifndef HAVE_FLYWAY
 	curl https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/4.0.3/flyway-commandline-4.0.3.tar.gz -o ./bin/flyway-4.0.3.tar.gz
 	cd bin &&\
 	tar zxvf flyway-4.0.3.tar.gz &&\
@@ -18,7 +18,6 @@ endif
 install: flyway glide
 	go get -u golang.org/x/tools/cmd/goimports
 	go get -u github.com/jteeuwen/go-bindata/...
-	go get -u github.com/elazarl/go-bindata-assetfs/...
 	glide install
 	make build-assets
 
