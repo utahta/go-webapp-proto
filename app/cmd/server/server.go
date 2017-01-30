@@ -5,10 +5,10 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"github.com/labstack/gommon/log"
+	"github.com/utahta/echo-sessions"
 	"github.com/utahta/go-webapp-proto/app/controller"
 	"github.com/utahta/go-webapp-proto/app/lib/config"
 	"github.com/utahta/go-webapp-proto/app/lib/db"
-	appmiddleware "github.com/utahta/go-webapp-proto/app/middleware"
 )
 
 // GOPATH 下に置いて開発想定
@@ -36,9 +36,9 @@ func doMain() error {
 
 	// ミドルウェア設定
 	// e.Pre(), e.Use() がある詳しくはドキュメント参照
-	e.Use(middleware.Recover())                         // パニックが起きたとき、リカバーしてエラーレスポンスを返す
-	e.Use(middleware.Logger())                          // リクエスト情報をログに書き出す。default stdout
-	e.Use(appmiddleware.Session("WEBAPPSESSID", store)) // セッションは自前ミドルウェア
+	e.Use(middleware.Recover())                     // パニックが起きたとき、リカバーしてエラーレスポンスを返す
+	e.Use(middleware.Logger())                      // リクエスト情報をログに書き出す。default stdout
+	e.Use(sessions.Sessions("WEBAPPSESSID", store)) // セッションは自前ミドルウェア
 
 	// レンダラーを設定（c.Render 時に呼び出される）
 	e.Renderer = new(TemplateRenderer)

@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
+	"github.com/utahta/echo-sessions"
 	"github.com/utahta/go-webapp-proto/app/lib/dummy"
-	"github.com/utahta/go-webapp-proto/app/lib/session"
 	"github.com/utahta/go-webapp-proto/app/model"
 )
 
@@ -16,12 +16,14 @@ func DummyIndex(c echo.Context) error {
 		return err
 	}
 
-	s := session.MustStart(c)
-	hoge, ok := s.Get("hoge")
-	if ok {
-		s.Set("hoge", hoge.(int)+1)
-	} else {
+	s := sessions.MustStart(c)
+
+	var hoge int
+	err = s.Get("hoge", &hoge)
+	if err == sessions.ErrNoSuchKey {
 		s.Set("hoge", 1)
+	} else {
+		s.Set("hoge", hoge+1)
 	}
 	s.Save()
 
@@ -30,7 +32,7 @@ func DummyIndex(c echo.Context) error {
 }
 
 func DummySearch(c echo.Context) error {
-	s := session.MustStart(c)
+	s := sessions.MustStart(c)
 	v := s.Session.Values["hoge"]
 
 	log.Println(c.Path(), v)
