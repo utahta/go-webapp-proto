@@ -19,8 +19,7 @@ func DummyIndex(c echo.Context) error {
 	s := sessions.MustStart(c)
 
 	var hoge int
-	err = s.Get("hoge", &hoge)
-	if err == sessions.ErrNoSuchKey {
+	if ok := s.MustGet("hoge", &hoge); !ok {
 		s.Set("hoge", 1)
 	} else {
 		s.Set("hoge", hoge+1)
