@@ -1,5 +1,5 @@
-hash: 6e52615d6df28e07dc071b6a1ef2d22e83f4bc460e3e6ff94446ceb333a826c1
-updated: 2017-02-01T01:04:35.446921197+09:00
+hash: 4722f2b371e31ffebf54434447964e625743a8ebd02b6b178f787eec3eab9998
+updated: 2017-02-01T01:16:43.466314099+09:00
 imports:
 - name: github.com/boj/redistore
   version: fc113767cd6b051980f260d6dbe84b2740c46ab0
@@ -80,8 +80,10 @@ imports:
   version: 5ed0fc31f7f453625df314d8e66b9791e8d13003
 - name: github.com/tylerb/graceful
   version: 0e9129e9c6d47da90dc0c188b26bd7bb1dab53cd
+- name: github.com/uber-go/zap
+  version: a5783ee4b216a927da8f839c45cfbf9d694e1467
 - name: github.com/utahta/echo-sessions
-  version: bbc0e7f884eaa5556299b832b7707ea6ef39be34
+  version: 0ad5dbd7ff20c51d3e15cd910571a0718c219ba6
 - name: github.com/valyala/bytebufferpool
   version: e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7
 - name: github.com/valyala/fasttemplate
