@@ -14,7 +14,7 @@ import (
 // GOPATH 下に置いて開発想定
 // GOPATH 下で go get or git clone をする必要がある
 
-func doMain() error {
+func run() error {
 	// 設定ファイルを読み込み
 	if err := config.Load("dev", "config/local"); err != nil {
 		return err
@@ -25,6 +25,7 @@ func doMain() error {
 	}
 	defer db.Close()
 
+	// セッション用途
 	store, err := redistore.NewRediStore(10, "tcp", ":6379", "", []byte("secret-key"))
 	if err != nil {
 		return err
@@ -55,7 +56,7 @@ func doMain() error {
 }
 
 func main() {
-	if err := doMain(); err != nil {
+	if err := run(); err != nil {
 		log.Fatal(err)
 	}
 }

@@ -1,14 +1,14 @@
-hash: 4722f2b371e31ffebf54434447964e625743a8ebd02b6b178f787eec3eab9998
-updated: 2017-02-01T01:16:43.466314099+09:00
+hash: 975dd26c41283a3e45087cef912f96d685f48986d4562a0a5a5a1f97ea386cb6
+updated: 2017-02-03T15:23:40.191746002+09:00
 imports:
 - name: github.com/boj/redistore
   version: fc113767cd6b051980f260d6dbe84b2740c46ab0
 - name: github.com/dgrijalva/jwt-go
-  version: a601269ab70c205d26370c16f7c81e9017c14e04
+  version: 2268707a8f0843315e2004ee4f1d021dc08baedf
 - name: github.com/elazarl/go-bindata-assetfs
   version: 9a6736ed45b44bf3835afeebb3034b57ed329f3e
 - name: github.com/fsnotify/fsnotify
-  version: fd9ec7deca8bf46ecd2a795baaacf2b3a9be1197
+  version: a904159b9206978bb6d53fcc7a769e5cd726c737
 - name: github.com/garyburd/redigo
   version: 908534c8b97586a4597e3fa195875d2d26502b97
   subpackages:
@@ -31,7 +31,7 @@ imports:
 - name: github.com/gorilla/sessions
   version: ca9ada44574153444b00d3fd9c8559e4cc95f896
 - name: github.com/hashicorp/hcl
-  version: db4f0768927a665a06c32855186e1bc762bcc8f5
+  version: 372e8ddaa16fd67e371e9323807d056b799360af
   subpackages:
   - hcl/ast
   - hcl/parser
@@ -71,11 +71,11 @@ imports:
   subpackages:
   - mem
 - name: github.com/spf13/cast
-  version: 56a7ecbeb18dde53c6db4bd96b541fd9741b8d44
+  version: d1139bab1c07d5ad390a65e7305876b3c1a8370b
 - name: github.com/spf13/jwalterweatherman
   version: fa7ca7e836cf3a8bb4ebf799f472c12d7e903d66
 - name: github.com/spf13/pflag
-  version: a9a634f3de0a7529baded7ad6b0c7467d5c6eca7
+  version: 9ff6c6923cfffbcd502984b8e0c80539a94968b7
 - name: github.com/spf13/viper
   version: 5ed0fc31f7f453625df314d8e66b9791e8d13003
 - name: github.com/tylerb/graceful
@@ -83,7 +83,7 @@ imports:
 - name: github.com/uber-go/zap
   version: a5783ee4b216a927da8f839c45cfbf9d694e1467
 - name: github.com/utahta/echo-sessions
-  version: 0ad5dbd7ff20c51d3e15cd910571a0718c219ba6
+  version: 16f380cbe611510c03a803c68f4f7976e4986e4f
 - name: github.com/valyala/bytebufferpool
   version: e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7
 - name: github.com/valyala/fasttemplate
@@ -103,7 +103,7 @@ imports:
   subpackages:
   - unix
 - name: golang.org/x/text
-  version: ece019dcfd29abcf65d0d1dfe145e8faad097640
+  version: 506f9d5c962f284575e88337e7d9296d27e729d3
   subpackages:
   - transform
   - unicode/norm
