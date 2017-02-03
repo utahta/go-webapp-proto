@@ -43,7 +43,7 @@ model:
 	@xorm reverse mysql "root:@/webapp?charset=utf8" ./vendor/github.com/go-xorm/cmd/xorm/templates/goxorm app/model
 	@rm app/model/schemaVersion.go
 
-server:
+web:
 	@make build-web-assets-debug
 	@go run ./app/web/cmd/*
 

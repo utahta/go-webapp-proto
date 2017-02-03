@@ -1,11 +1,10 @@
-<html>
-<head>
-    <script type="text/javascript" src="/public/js/dummy.js"></script>
-</head>
-<body>
+{{define "header"}}
+<script type="text/javascript" src="/public/js/dummy.js"></script>
+{{end}}
+
+{{define "content"}}
 Dummy Index!!
 {{ .User }}
 
 <img src="/public/images/dummy.png">
-</body>
-</html>
+{{end}}
