@@ -19,20 +19,20 @@ install: flyway glide
 	go get -u golang.org/x/tools/cmd/goimports
 	go get -u github.com/jteeuwen/go-bindata/...
 	glide install
-	make build-assets
+	make build-web-assets
 
 fmt:
 	@goimports -w ./app
 
-build-assets:
-	@cd app && go-bindata -o=cmd/server/assets.go ./assets/...
+build-web-assets:
+	@cd app/web/assets && go-bindata -o=../cmd/assets.go ./...
 
-build-assets-debug:
-	@cd app && go-bindata -debug -o=cmd/server/assets.go ./assets/...
+build-web-assets-debug:
+	@cd app/web/assets && go-bindata -debug -o=../cmd/assets.go ./...
 
-build-server:
-	@make build-assets
-	@cd ./app/cmd/server && go build 
+build-web-server:
+	@make build-web-assets
+	@cd ./app/web/cmd && go build
 
 # make にすると本番で誤って実行したとき危険ぽいので変えた方が良さそう
 migrate:
@@ -44,6 +44,6 @@ model:
 	@rm app/model/schemaVersion.go
 
 server:
-	@make build-assets-debug
-	@go run ./app/cmd/server/*
+	@make build-web-assets-debug
+	@go run ./app/web/cmd/*
 

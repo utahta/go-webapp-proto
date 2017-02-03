@@ -4,7 +4,7 @@
 
 # project setting
 vendor
-app/cmd/server/assets.go
-app/cmd/server/server
+app/web/cmd/assets.go
+app/web/cmd/server
 bin/flyway*
 

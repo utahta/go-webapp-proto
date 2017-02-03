@@ -1,4 +1,4 @@
-# GoでWebアプリを作る調査＆プロトタイプ
+# Goで作るWebアプリのプロトタイプ
 
 ## 構成
 
@@ -14,19 +14,20 @@
 
 |ディレクトリ|説明|
 |:---|:---|
-|cmd|実行バイナリ|
-|controller|コントローラー|
+|web|Webアプリ・API|
+|admin|管理画面|
+|batch|CLIツール|
 |model|モデル|
-|lib|よしなにロジックをまとめられれば|
-|assets|bindata に固めるファイルたち|
-|middleware|自前の echo ミドルウェア|
+|lib|ロジック類|
+|middleware|ミドルウェア|
 
-### app/cmd
+### app/web
 
 |ディレクトリ|説明|
 |:---|:---|
-|batch|バッチ|
-|server|サーバ|
+|cmd|サーバ|
+|controller|コントローラー|
+|assets|bindata で固める静的ファイル|
 
 ## パッケージ管理
 
@@ -50,8 +51,6 @@
 
 [flywaydb](https://flywaydb.org/)
 
-ある程度安定していそう
-
 ## フレームワーク
 
 [labstack/echo](https://github.com/labstack/echo)
@@ -60,11 +59,4 @@
 
 [go-xorm/xorm](https://github.com/go-xorm/xorm)
 
-## セッション
-
-[gorilla/sessions](github.com/gorilla/sessions)  
-[boj/redistore](https://github.com/boj/redistore)
-
-Redis に格納する体  
-最初にある程度整えてあげる必要性を感じた
 

@@ -6,9 +6,9 @@ import (
 	"github.com/labstack/echo/middleware"
 	"github.com/labstack/gommon/log"
 	"github.com/utahta/echo-sessions"
-	"github.com/utahta/go-webapp-proto/app/controller"
 	"github.com/utahta/go-webapp-proto/app/lib/config"
 	"github.com/utahta/go-webapp-proto/app/lib/db"
+	"github.com/utahta/go-webapp-proto/app/web/controller"
 )
 
 // GOPATH 下に置いて開発想定
@@ -40,14 +40,12 @@ func run() error {
 	e.Use(middleware.Recover())                     // パニックが起きたとき、リカバーしてエラーレスポンスを返す
 	e.Use(middleware.Logger())                      // リクエスト情報をログに書き出す。default stdout
 	e.Use(sessions.Sessions("WEBAPPSESSID", store)) // セッションは自前ミドルウェア
+	e.Renderer = new(TemplateRenderer) // レンダラー
 
-	// レンダラーを設定（c.Render 時に呼び出される）
-	e.Renderer = new(TemplateRenderer)
+	// 静的ファイル
+	e.GET("/public/*", FileServerHandler())
 
-	// 静的ファイルは http.FileServer に任せる
-	e.GET("/assets/public/*", FileServerHandler())
-
-	// ルーティングは、グループ化もできる
+	// ルーティング
 	g := e.Group("/dummy")
 	g.GET("/", controller.DummyIndex)
 	g.GET("/search", controller.DummySearch)

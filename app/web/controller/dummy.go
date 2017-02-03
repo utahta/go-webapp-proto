@@ -25,12 +25,12 @@ func DummyIndex(c echo.Context) error {
 	sessions.Save(c)
 
 	v := struct{ User *model.User }{User: u}
-	return c.Render(http.StatusOK, "assets/view/dummy/index.html", v)
+	return c.Render(http.StatusOK, "view/dummy/index.html", v)
 }
 
 func DummySearch(c echo.Context) error {
 	v := sessions.GetRaw(c, "hoge")
 
 	log.Infof("%s %v", c.Path(), v)
-	return c.Render(http.StatusOK, "assets/view/dummy/search.html", nil)
+	return c.Render(http.StatusOK, "view/dummy/search.html", nil)
 }
