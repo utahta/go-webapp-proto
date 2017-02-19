@@ -1,4 +1,4 @@
-# Goで作るWebアプリのプロトタイプ
+# Goで作るWebアプリのプロトタイプ（echo 版）
 
 ## 構成
 
@@ -14,19 +14,11 @@
 
 |ディレクトリ|説明|
 |:---|:---|
-|web|Webアプリ・API|
-|admin|管理画面|
-|batch|CLIツール|
+|console|コンソールツール|
+|controller|コントローラー|
 |model|モデル|
 |lib|ロジック類|
 |middleware|ミドルウェア|
-
-### app/web
-
-|ディレクトリ|説明|
-|:---|:---|
-|cmd|サーバ|
-|controller|コントローラー|
 |assets|bindata で固める静的ファイル|
 
 ## パッケージ管理

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+
 	"github.com/boj/redistore"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -15,9 +17,16 @@ import (
 // GOPATH 下に置いて開発
 // GOPATH 下に移動して git clone
 
+var (
+	configPath = flag.String("c", "config", "config path")
+	env        = flag.String("e", "dev", "environment")
+)
+
 func run() error {
+	flag.Parse()
+
 	// 設定ファイルを読み込み
-	if err := config.Load("dev", "config/local"); err != nil {
+	if err := config.Load(*env, *configPath); err != nil {
 		return err
 	}
 

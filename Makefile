@@ -50,5 +50,5 @@ model:
 
 server:
 	@make build-assets-debug
-	@go run ./app/main.go
+	@go run ./app/main.go $(ARG)
 
