@@ -2,20 +2,19 @@ package main
 
 import (
 	"flag"
+	"log"
+	"net/http"
 
 	"github.com/boj/redistore"
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
-	"github.com/labstack/gommon/log"
-	"github.com/utahta/echo-sessions"
+	"github.com/pressly/chi"
+	"github.com/pressly/chi/middleware"
 	"github.com/utahta/go-webapp-proto/app/assets"
 	"github.com/utahta/go-webapp-proto/app/controller"
 	"github.com/utahta/go-webapp-proto/app/lib/config"
 	"github.com/utahta/go-webapp-proto/app/lib/db"
 )
 
-// GOPATH 下に置いて開発
-// GOPATH 下に移動して git clone
+// develop under GOPATH
 
 var (
 	configPath = flag.String("c", "config", "config path")
@@ -25,42 +24,37 @@ var (
 func run() error {
 	flag.Parse()
 
-	// 設定ファイルを読み込み
+	// load config
 	if err := config.Load(*env, *configPath); err != nil {
 		return err
 	}
 
+	// open database
 	if err := db.Open(); err != nil {
 		return err
 	}
 	defer db.Close()
 
-	// セッション用途
+	// for session
 	store, err := redistore.NewRediStore(10, "tcp", ":6379", "", []byte("secret-key"))
 	if err != nil {
 		return err
 	}
 	defer store.Close()
 
-	e := echo.New()
-	e.Logger.SetLevel(log.DEBUG) // ログレベルの設定
+	// routes
+	r := chi.NewRouter()
+	r.Use(middleware.Recoverer)
+	r.Use(middleware.Logger)
 
-	// ミドルウェア設定
-	// e.Pre(), e.Use() がある詳しくはドキュメント参照
-	e.Use(middleware.Recover())                     // パニックが起きたとき、リカバーしてエラーレスポンスを返す
-	e.Use(middleware.Logger())                      // リクエスト情報をログに書き出す。default stdout
-	e.Use(sessions.Sessions("WEBAPPSESSID", store)) // セッションは自前ミドルウェア
-	e.Renderer = new(assets.Template)               // テンプレートレンダラー
+	r.FileServer("/public", assets.FileSystem())
 
-	// 静的ファイル
-	e.GET("/public/*", assets.FileServerHandler())
+	r.Route("/dummy", func(r chi.Router) {
+		r.Get("/", controller.DummyIndex)
+		r.Get("/search", controller.DummySearch)
+	})
 
-	// ルーティング
-	g := e.Group("/dummy")
-	g.GET("/", controller.DummyIndex)
-	g.GET("/search", controller.DummySearch)
-
-	return e.Start(":8888")
+	return http.ListenAndServe(":8888", r)
 }
 
 func main() {

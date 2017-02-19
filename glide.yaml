@@ -1,7 +1,5 @@
 package: github.com/utahta/go-webapp-proto
 import:
-- package: github.com/labstack/echo
-  version: ^3.0.3
 - package: github.com/go-xorm/xorm
   version: ^0.5.8
 - package: github.com/go-xorm/cmd
@@ -10,11 +8,11 @@ import:
 - package: github.com/spf13/viper
 - package: github.com/boj/redistore
   version: ^1.2.0
-- package: github.com/utahta/echo-sessions
-  version: ^0.3.0
 - package: github.com/gorilla/sessions
   version: ^1.1.0
 - package: github.com/gorilla/securecookie
   version: ^1.1.0
 - package: github.com/elazarl/go-bindata-assetfs
 - package: github.com/uber-go/zap
+- package: github.com/pressly/chi
+  version: ^2.0.0
