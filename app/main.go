@@ -6,13 +6,14 @@ import (
 	"github.com/labstack/echo/middleware"
 	"github.com/labstack/gommon/log"
 	"github.com/utahta/echo-sessions"
+	"github.com/utahta/go-webapp-proto/app/assets"
+	"github.com/utahta/go-webapp-proto/app/controller"
 	"github.com/utahta/go-webapp-proto/app/lib/config"
 	"github.com/utahta/go-webapp-proto/app/lib/db"
-	"github.com/utahta/go-webapp-proto/app/web/controller"
 )
 
-// GOPATH 下に置いて開発する
-// GOPATH 下に移動し git clone
+// GOPATH 下に置いて開発
+// GOPATH 下に移動して git clone
 
 func run() error {
 	// 設定ファイルを読み込み
@@ -40,17 +41,17 @@ func run() error {
 	e.Use(middleware.Recover())                     // パニックが起きたとき、リカバーしてエラーレスポンスを返す
 	e.Use(middleware.Logger())                      // リクエスト情報をログに書き出す。default stdout
 	e.Use(sessions.Sessions("WEBAPPSESSID", store)) // セッションは自前ミドルウェア
-	e.Renderer = new(TemplateRenderer)              // レンダラー
+	e.Renderer = new(assets.Template)               // テンプレートレンダラー
 
 	// 静的ファイル
-	e.GET("/public/*", FileServerHandler())
+	e.GET("/public/*", assets.FileServerHandler())
 
 	// ルーティング
 	g := e.Group("/dummy")
 	g.GET("/", controller.DummyIndex)
 	g.GET("/search", controller.DummySearch)
 
-	return e.Start(":1323")
+	return e.Start(":8888")
 }
 
 func main() {

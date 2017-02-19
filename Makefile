@@ -19,20 +19,25 @@ install: flyway glide
 	go get -u golang.org/x/tools/cmd/goimports
 	go get -u github.com/jteeuwen/go-bindata/...
 	glide install
-	make build-web-assets
+	make build-assets
 
 fmt:
 	@goimports -w ./app
 
-build-web-assets:
-	@cd app/web/assets && go-bindata -o=../cmd/assets.go ./...
+build-assets:
+	@cd app/assets && go-bindata -pkg=assets -ignore=.go -o=./assets.go ./...
 
-build-web-assets-debug:
-	@cd app/web/assets && go-bindata -debug -o=../cmd/assets.go ./...
+build-assets-debug:
+	@cd app/assets && go-bindata -debug -pkg=assets -ignore=.go -o=./assets.go ./...
 
-build-web-server:
-	@make build-web-assets
-	@cd ./app/web/cmd && go build
+build-console:
+	@go build -o build/console app/console/*
+
+build-server:
+	@make build-assets
+	@go build -o build/server app/main.go
+
+build: build-console build-server
 
 # make にすると本番で誤って実行したとき危険ぽいので変えた方が良さそう
 migrate:
@@ -43,7 +48,7 @@ model:
 	@xorm reverse mysql "root:@/webapp?charset=utf8" ./vendor/github.com/go-xorm/cmd/xorm/templates/goxorm app/model
 	@rm app/model/schemaVersion.go
 
-web:
-	@make build-web-assets-debug
-	@go run ./app/web/cmd/*
+server:
+	@make build-assets-debug
+	@go run ./app/main.go
 
