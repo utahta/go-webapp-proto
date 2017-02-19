@@ -14,7 +14,7 @@ func (r *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c 
 	// ただし、現状 Go の得意分野ではないので、軽めに使う想定
 	src := append(
 		MustAsset("view/base.html"),
-		MustAsset(name)...
+		MustAsset(name)...,
 	)
 	tm := template.Must(template.New("base").Parse(string(src)))
 	return tm.Execute(w, data)

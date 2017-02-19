@@ -11,8 +11,8 @@ import (
 	"github.com/utahta/go-webapp-proto/app/web/controller"
 )
 
-// GOPATH 下に置いて開発想定
-// GOPATH 下で go get or git clone をする必要がある
+// GOPATH 下に置いて開発する
+// GOPATH 下に移動し git clone
 
 func run() error {
 	// 設定ファイルを読み込み
@@ -40,7 +40,7 @@ func run() error {
 	e.Use(middleware.Recover())                     // パニックが起きたとき、リカバーしてエラーレスポンスを返す
 	e.Use(middleware.Logger())                      // リクエスト情報をログに書き出す。default stdout
 	e.Use(sessions.Sessions("WEBAPPSESSID", store)) // セッションは自前ミドルウェア
-	e.Renderer = new(TemplateRenderer) // レンダラー
+	e.Renderer = new(TemplateRenderer)              // レンダラー
 
 	// 静的ファイル
 	e.GET("/public/*", FileServerHandler())
