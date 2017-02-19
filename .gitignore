@@ -4,7 +4,9 @@
 
 # project setting
 vendor
-app/assets/assets.go
-bin/flyway*
-build/server
-build/console
+app
+build
+bin
+config
+db
+glide.*

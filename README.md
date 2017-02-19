@@ -1,4 +1,4 @@
-# Goで作るWebアプリのプロトタイプ
+# A web application prototype built with Go
 
-[echo 版](https://github.com/utahta/go-webapp-proto/tree/echo)
-
+[chi ver](https://github.com/utahta/go-webapp-proto/tree/chi)  
+[echo ver](https://github.com/utahta/go-webapp-proto/tree/echo)
